@@ -1,5 +1,7 @@
 package br.ce.luisvanique.task.apitest;
 
+import java.time.LocalDate;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,8 +28,10 @@ public class APITest {
 	
 	@Test
 	public void deveAdicionarTarefasComSucesso() {
+		LocalDate dataAtual = LocalDate.now();
 		RestAssured.given()
-			.body("{ \"task\": \"Teste via API\", \"dueDate\": \"2024-12-07\" }").contentType(ContentType.JSON)
+		.body("{ \"task\": \"Teste via API\", \"dueDate\": \""+
+		LocalDate.now().getYear()+"-"+LocalDate.now().getMonthValue()+"-"+LocalDate.now().getDayOfMonth()+"\" }").contentType(ContentType.JSON)
 		.when()
 			.post("/todo")
 		.then()
@@ -48,5 +52,6 @@ public class APITest {
 	}
 	
 }
+
 
 
